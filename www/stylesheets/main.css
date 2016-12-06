@@ -1,0 +1,363 @@
+@font-face {
+  font-family: 'fontello';
+  src: url('../font/fontello.eot?90500244');
+  src: url('../font/fontello.eot?90500244#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff?90500244') format('woff'),
+       url('../font/fontello.ttf?90500244') format('truetype'),
+       url('../font/fontello.svg?90500244#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+ 
+.icon {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-menu:before { content: '\e800'; }
+.icon-angle-circled-left:before { content: '\e802'; }
+.icon-angle-right:before { content: '\e803'; }
+.icon-resize-full-alt:before { content: '\e804'; }
+.icon-plus-squared-alt:before { content: '\e805'; }
+.icon-plus:before { content: '\e806'; }
+.icon-angle-down:before { content: '\e807'; }
+.icon-angle-up:before { content: '\e808'; }
+.icon-angle-left:before { content: '\e809'; }
+.icon-angle-circled-right:before { content: '\e80a'; }
+.icon-angle-circled-up:before { content: '\e80b'; }
+.icon-angle-circled-down:before { content: '\e80c'; }
+
+body {
+	margin: 0px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+img {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.nav-bar {
+	width: 100%;
+	height: 55px;
+	padding: 0px 15px;
+	line-height: 55px;
+	vertical-align: middle;
+	text-align: left;
+	display: block;
+	color: white;
+	background-color: rgb(34, 37, 34);
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-weight: 500; 
+	z-index: 101;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+
+	-moz-box-shadow:    0 2px 5px -3px black;
+    -webkit-box-shadow: 0 2px 5px -3px black;
+    box-shadow:         0 2px 5px -3px black;
+}
+
+.nav-item {
+	width: 35px; 
+	height: 35px;
+	margin: 0px 10px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.page-title {
+	width: auto;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.control-panel {
+	width: 22%;
+/*	padding: 0px 10px;*/
+	height: calc(100% - 55px);
+	display: block;
+	overflow: scroll;
+/*	float: left;*/
+	background-color: rgb(34, 37, 34);
+	text-align: center;
+	font-size: 12px;
+	left: 0px;
+	top: 55px;
+	position: absolute;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+
+	-webkit-box-shadow: inset -4px 0px 21px -7px rgb(0,0,0);
+	-moz-box-shadow: inset -4px 0px 21px -7px rgb(0,0,0);
+	box-shadow: inset -4px 0px 21px -7px rgb(0,0,0);
+}
+
+#saveBtn {
+	top: 130px;
+}
+
+.collapse-btn {
+	width: 40px;
+	height: 35px;
+	line-height: 35px;
+	vertical-align: middle;
+	background-color: rgb(252, 251, 253); 
+	display: block;
+	top: 83px;
+	left: calc(22% - 42px);
+	position: absolute;
+	z-index: 103;
+	cursor: pointer;
+
+/*	border: rgb(154, 157, 154) 1px solid;
+	border-right: none;
+*/
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;}
+    .collapse-btn:hover {
+    	color: rgb(197, 198, 198);
+    }
+
+.left-round-btn {
+	-moz-border-top-left-radius: 4px;
+    -moz-border-bottom-left-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+
+    -moz-box-shadow:    -3px 3px 8px -3px black;
+    -webkit-box-shadow: -3px 3px 8px -3px black;
+    box-shadow:         -3px 3px 8px 8px -3px black;
+}
+
+.right-round-btn {
+	-moz-border-top-right-radius: 4px;
+    -moz-border-bottom-right-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    -moz-box-shadow:    3px 1px 8px -3px black;
+    -webkit-box-shadow: 3px 1px 8px -3px black;
+    box-shadow:         3px 1px 8px 8px -3px black;
+}
+
+.table-wrapper {
+	width: 96%;
+/*	height: calc(100% - 15px);*/
+	top: 15px;
+	left: 0px;
+	margin: 2% 2%;
+	position: absolute;
+	z-index: 102;
+}
+
+.table-header {
+	display: block;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+	font-size: 27px;
+	font-weight: 300;
+	color: rgb(248, 245, 247);
+/*	border: white 1px solid;*/
+	position: relative;
+}
+
+.table-list {
+	width: 100%;
+	display: block;
+	padding-top: 30px;
+	position: relative;}
+	.table-list .table-cell {
+	    height: 40px;
+	    margin: 0px 4%;
+	    width: 90%;
+	    color: rgb(178, 175, 177);
+	    /*border-bottom: rgba(97,103,97,1) 1px dashed;*/
+	    text-align: center;
+	    cursor: pointer;
+	    vertical-align: center;
+	    position: relative;
+	    display: block;}
+	   	.table-list .table-cell:hover, .table-list .table-cell:active {
+	   		color: white;}
+	   	
+		.table-list .table-cell:after {
+			content: "";
+			height: 0.5px;
+			background: linear-gradient(to left,  rgba(34,37,34,0) 0%,rgba(97,103,97,1) 50%,rgba(34,37,34,0) 100%);
+			display: block;}
+		
+	    .table-list .table-cell .cell-label {
+		    text-align: center;
+	        vertical-align: center;
+	        display: inline-block;
+	        width: 70%;
+	        height: inherit;
+	        line-height: 40px;
+	        vertical-align: middle;
+	        font-size: 17px;
+	    	font-weight: 300;}
+        .table-list .table-cell .cell-btn {
+			text-align: center;
+			display: block;
+			position: absolute;
+			width: 40px;
+			height: inherit;
+			line-height: 40px;
+			vertical-align: middle;
+			cursor: pointer;}
+
+@-prefix-keyframes slide {
+  from {height: 0px;}
+  to {height: 1000px;}
+}
+
+.table-sublist {
+/*	left: 0%;*/
+/*	display: none;*/
+/*	height: 100px;*/
+	width: 100%;
+	text-align: center;
+	position: relative;
+	display: none;
+
+	height: 0px;
+    overflow: scroll;
+   	-prefix-animation: slide 1s ease 3.5s forwards;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;}
+
+	.table-sublist .table-cell {
+		margin: 20px 20%;
+		padding-bottom: 20px;
+		width: 60%;
+		height: 100px;
+/*		border-bottom: rgb(97,103,97) 1px dashed;
+*/	}
+		
+		.table-sublist .table-cell:after {
+			top: 10px;
+			position: relative;
+/*			display: none;
+*/		}
+
+		.table-sublist .table-cell img:hover {
+			cursor: pointer;
+			opacity: 0.4;
+    		filter: alpha(opacity=40);
+		}
+
+
+.viewer-panel {
+	width: 78%;
+	height: calc(100% - 55px);
+/*	width: 100%;*/
+/*	height: 100%;*/
+/*	float: right;*/
+	display: block;
+	left: 22%;
+	top: 55px;
+	position: absolute;
+}
+
+.viewer-box {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#viewer3D {
+	z-index: 99;
+}
+
+/*#viewer2D {
+*/
+.draggable {
+	left: 68%;
+	top: 44%;
+	width: 30%;
+	height: 50%;
+	max-width: 400px;
+	max-height: 300px;
+	z-index: 107;
+	position: absolute;
+
+	-moz-box-shadow:    1 3px 6px -3px gray;
+    -webkit-box-shadow: 1 3px 6px -3px gray;
+    box-shadow:         1 3px 6px -3px gray;
+}
+
+.draggable-nav {
+	height: 15px;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	z-index: 109;
+	background-color: rgb(34, 37, 34);
+	cursor: pointer;
+
+	-moz-box-shadow:    0 3px 5px -3px black;
+    -webkit-box-shadow: 0 3px 5px -3px black;
+    box-shadow:         0 3px 5px -3px black;
+}
+
+.draggable-body {
+	top: 15px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	z-index: 108;
+	border: black 1px solid;
+}
