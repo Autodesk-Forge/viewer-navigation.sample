@@ -116,6 +116,8 @@ function uploadToOSS(fileName, filePath, req, res, callback) {
           },
           body: filecontent
         }, function (error, response, body) {
+          if (error) {console.log(error); return;}
+
           // now translate to SVF (Forge Viewer format)
           var ossUrn = JSON.parse(body).objectId.toBase64();
 
