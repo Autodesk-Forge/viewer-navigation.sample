@@ -93,6 +93,10 @@ function loadDocument(urnStr, cb3d, cb2d) {
   // disable panel while loading document
   panelDisabled = true;
 
+  // unload current loaded model
+  viewer3D.impl.unloadModel(viewer3D.model);
+  viewer2D.impl.unloadModel(viewer2D.model);
+
   var urn = "urn:" + urnStr;
   Autodesk.Viewing.Document.load(urn,
 
