@@ -99,8 +99,10 @@ function uploadToOSS(fileName, filePath, req, res, callback) {
     // promise will treat 409 as error, but let's handle it
     buckets.createBucket(postBuckets, null, function (err, data, response) {
       if (err) {
-        console.log('Error creating bucket ' + err);
-        return;
+        if (err.statusCode!=409) {
+          console.log('Error creating bucket ' + err);
+          return;
+        }
       }
 
       // upload to Forge OSS
