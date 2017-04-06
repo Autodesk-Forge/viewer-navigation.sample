@@ -98,8 +98,8 @@ function uploadToOSS(fileName, filePath, req, res, callback) {
 
     // promise will treat 409 as error, but let's handle it
     buckets.createBucket(postBuckets, null, function (err, data, response) {
-      if (err) {//data.statusCode != 200 && data.statusCode != 409 /*bucket already exists*/) {
-        console.log('Error creating bucket ' + response.statusCode);
+      if (err) {
+        console.log('Error creating bucket ');
         return;
       }
 
