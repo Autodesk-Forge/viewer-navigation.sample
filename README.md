@@ -17,7 +17,9 @@ You can try it live at [viewernavigation.herokuapp.com](https://viewernavigation
 
 The main page looks like:
 
-![](www/images/indexpage.png)
+### Thumbnail
+
+![thumbnail](www/images/indexpage.png)
 
 # Setup
 
