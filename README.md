@@ -8,6 +8,7 @@
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
 [![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://developer.autodesk.com/)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
+[![Viewer](https://img.shields.io/badge/Viewer-v3.3-green.svg)](http://developer.autodesk.com/)
 
 # Description
 
