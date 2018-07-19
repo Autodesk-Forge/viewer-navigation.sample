@@ -27,7 +27,7 @@ The main page looks like:
 
   - This sample is hard-coded with the viewboxes for the specific Revit models:rac_basic_sample_project.rvt and rac_advanced_sample_project.rvt. you can find them in [Samples] folder of Revit installation path OR [Revit on-line help](https://knowledge.autodesk.com/support/revit-products/getting-started/caas/CloudHelp/cloudhelp/2018/ENU/Revit-GetStarted/files/GUID-61EF2F22-3A1F-4317-B925-1E85F138BE88-htm.html). 
 
-  - Please use other ways to upload the model file to translate the source model to the format for Forge Viewer in advance. Get the model base64 urn. Make sure the logic object name is consistent to what are defined in [viewboxes json](/rac.json), e.g. **revithouse** and **racadvanced**
+  - Please use other ways to upload the model file to translate the source model to the format for Forge Viewer in advance. Get the model base64 urn. Make sure the logic object name is consistent to what are defined in [viewboxes json](www/rac.json), e.g. **revithouse** and **racadvanced**
 
   - provide your client id, client secret, bucket name in [config.js](server/config.js)
 
