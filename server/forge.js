@@ -55,7 +55,7 @@ router.get('/forge/models', function (req, res) {
 
     buckets.getBuckets({limit: 100}).then(function (data) {
       data.items.forEach(function (bucket) {
-        if (bucket.bucketKey.indexOf(ossBucketKey) == 0) {
+        if (bucket.bucketKey == require('./config').bucketName) {
           objects.getObjects(bucket.bucketKey).then(function (data) {
             var models = [];
             data.items.forEach(function (object) {
