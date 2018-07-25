@@ -8,13 +8,12 @@
 [![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
 [![OSS](https://img.shields.io/badge/OSS-v2-green.svg)](http://developer.autodesk.com/)
 [![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
-[![Viewer](https://img.shields.io/badge/Viewer-v3.3-green.svg)](http://developer.autodesk.com/)
+[![Viewer](https://img.shields.io/badge/Viewer-v5.0-green.svg)](http://developer.autodesk.com/)
+
 
 # Description
 
 This sample demonstrate how to navigate on a model with 3D and 2D in sync.
- 
-You can try it live at [viewernavigation.herokuapp.com](https://viewernavigation.herokuapp.com/)
 
 The main page looks like:
 
@@ -24,7 +23,13 @@ The main page looks like:
 
 # Setup
 
-For using this sample, you need an Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:3000/api/forge/callback/oauth** as Callback URL, although is not used on 2-legged flow. Finally take note of the **Client ID** and **Client Secret**.
+  - For using this sample, you need an Autodesk developer credentials. Visit the [Forge Developer Portal](https://developer.autodesk.com), sign up for an account, then [create an app](https://developer.autodesk.com/myapps/create). For this new app, use **http://localhost:3000/api/forge/callback/oauth** as Callback URL, although is not used on 2-legged flow. Finally take note of the **Client ID** and **Client Secret**.
+
+  - This sample is hard-coded with the viewboxes for the specific Revit models:rac_basic_sample_project.rvt and rac_advanced_sample_project.rvt. you can find them in [Samples] folder of Revit installation path OR [Revit on-line help](https://knowledge.autodesk.com/support/revit-products/getting-started/caas/CloudHelp/cloudhelp/2018/ENU/Revit-GetStarted/files/GUID-61EF2F22-3A1F-4317-B925-1E85F138BE88-htm.html). 
+
+  - Please use other ways to upload the model file to translate the source model to the format for Forge Viewer in advance. Get the model base64 urn. Make sure the logic object name is consistent to what are defined in [viewboxes json](www/rac.json), e.g. **revithouse** and **racadvanced**
+
+  - provide your client id, client secret, bucket name in [config.js](server/config.js)
 
 ### Run locally
 

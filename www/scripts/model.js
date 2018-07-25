@@ -88,10 +88,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 function loadDocument(urnStr, cb3d, cb2d) {
 
-  viewer2D.
-
   // disable panel while loading document
-  panelDisabled = true;
+  viewer2D.panelDisabled = true;
 
   // unload current loaded model
   viewer3D.impl.unloadModel(viewer3D.model);
