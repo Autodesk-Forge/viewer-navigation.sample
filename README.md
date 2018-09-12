@@ -19,7 +19,7 @@ The main page looks like:
 
 ### Thumbnail
 
-![thumbnail](www/images/indexpage.png)
+![thumbnail](/thumbnail.png)
 
 # Setup
 
