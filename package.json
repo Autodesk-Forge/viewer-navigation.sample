@@ -1,6 +1,6 @@
 {
   "name": "viewer-navigation.sample",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Viewer 2D/3D Viewer Location Navigation",
   "main": "start.js",
   "repository": {
@@ -19,8 +19,11 @@
     "express": "*",
     "forge-model-derivative": "*",
     "forge-oauth2": "*",
-    "forge-oss": "*",
+    "forge-apis": "*",
     "request": "*",
-    "serve-favicon": "*"
-  }
+    "serve-favicon": "*",
+    "config-js": "*"
+  },
+  "engines" : { "node" : ">=6.4.0" } ,
+  "engineStrict" : true
 }

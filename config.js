@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
 // Written by Forge Partner Development
 //
@@ -14,20 +14,20 @@
 // MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
-/////////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////////
 
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
 module.exports = {
   // set enviroment variables or hard-code here
-  credentials: {
-    client_id: process.env.FORGE_CLIENT_ID || '',
-    client_secret: process.env.FORGE_CLIENT_SECRET || '',
-  },
-  bucketName:'',
-
+	credentials: {
+		client_id: process.env.FORGE_CLIENT_ID,
+		client_secret: process.env.FORGE_CLIENT_SECRET
+	},
+	bucketName: process.env.FORGE_BUCKET || 'navigationsample3d2d',
+	autoRefresh: true,
   // Required scopes for your application on server-side
-  scopeInternal: 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete',
+	scopeInternal: ['data:read', 'data:write', 'data:create', 'data:search', 'bucket:create', 'bucket:read', 'bucket:update', 'bucket:delete'],
   // Required scope of the token sent to the client
-  scopePublic: 'data:read'
+	scopePublic: ['data:read']
 };

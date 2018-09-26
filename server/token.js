@@ -18,20 +18,30 @@
 
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
-const express = require('express');
-const path = require('path');
-const app = express();
-const forge = require('./forge');
+const Config = require('config-js');
+const config = new Config('./config.js');
+const ForgeSDK = require('forge-apis');
 
-// favicon
-const favicon = require('serve-favicon');
-app.use(favicon(path.join(__dirname, '/../www/images/favicon.ico')));
+class Token {
+	getTokenPublic (callback) {
+		let clientId = config.get('credentials.client_id');
+		let clientSecret = config.get('credentials.client_secret');
 
-// prepare server routing
-app.use('/', express.static(path.join(__dirname, '/../www'))); // redirect static calls
-app.set('port', process.env.PORT || 3000); // main port
+		let apiInstance = new ForgeSDK.AuthClientTwoLegged(clientId, clientSecret, config.get('scopePublic'), config.get('autoRefresh'));
+		apiInstance.authenticate().then(function (data) {
+			callback(data, apiInstance);
+		});
+	}
 
-// prepare our API endpoint routing
-app.use('/', forge); // redirect oauth API calls
+	getTokenInternal (callback) {
+		let clientId = config.get('credentials.client_id');
+		let clientSecret = config.get('credentials.client_secret');
 
-module.exports = app;
+		let apiInstance = new ForgeSDK.AuthClientTwoLegged(clientId, clientSecret, config.get('scopeInternal'), config.get('autoRefresh'));
+		apiInstance.authenticate().then(function (data) {
+			callback(data, apiInstance);
+		});
+	}
+}
+
+module.exports = Token;
