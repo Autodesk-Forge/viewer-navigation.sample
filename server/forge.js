@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////////
 // Copyright (c) Autodesk, Inc. All rights reserved
 // Written by Forge Partner Development
 //
@@ -14,173 +14,143 @@
 // MERCHANTABILITY OR FITNESS FOR A PARTICULAR USE.  AUTODESK, INC.
 // DOES NOT WARRANT THAT THE OPERATION OF THE PROGRAM WILL BE
 // UNINTERRUPTED OR ERROR FREE.
-/////////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////////
 
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
 // web framework
-var express = require('express');
-var router = express.Router();
-var request = require('request');
+const express = require('express');
+const router = express.Router();
+const request = require('request');
+const re = /(?:\.([^.]+))?$/; // regex to extract file extension
 
 // forge config information, such as client ID and secret
-var config = require('./config');
+const Config = require('config-js');
+const config = new Config('./config.js');
 
 // make requests for tokens
-var token = require('./forge.token');
+const Token = require('./token');
 
 // forge
-var ForgeModelDerivative = require('forge-model-derivative');
-var ForgeOSS = require('forge-oss');
 
+const ForgeSDK = require('forge-apis');
+const myBucketKey = config.get('bucketName');
+const errHandler = function (err, res) { console.log(err); if (res && res.status)res.status(500).json(err); };
 // this end point will forgeLogoff the user by destroying the session
 // as of now there is no Forge endpoint to invalidate tokens
-router.get('/forge/oauth/token', function (req, res) {
-  var t = new token();
-  t.getTokenPublic(function (tokenPublic) {
-    res.status(200).end(tokenPublic);
-  })
+router.get('/forge/oauth/token', (req, res) =>
+  new Token().getTokenPublic(tokenPublic => res.status(200).end(tokenPublic.access_token))
+);
+
+router.get('/forge/models', (req, res) => {
+	new Token().getTokenInternal((tokenInternal, apiInstance) => {
+		let buckets = new ForgeSDK.BucketsApi();
+		let objects = new ForgeSDK.ObjectsApi();
+
+		buckets.getBuckets({}, apiInstance, tokenInternal).then(data => {
+			let bucket = data.body.items.find(abucket => abucket.bucketKey === config.get('bucketName'));
+
+			if (bucket) {
+				objects.getObjects(bucket.bucketKey, null, apiInstance, tokenInternal).then(data => {
+					res.status(200).json(
+            data.body.items.map(object => {
+	return { id: object.objectKey.split('.')[0], label: object.objectKey, urn: toBase64(object.objectId) };
+})
+          );
+				}, err => errHandler(err, res));
+			}
+		}, err => errHandler(err, res));
+	});
 });
 
-var ossBucketKey = process.env.FORGE_BUCKET || 'navigationsample3d2d';
+router.get('/forge/initialsetup', (req, res) => {
+	let path = require('path');
 
-router.get('/forge/models', function (req, res) {
-  var t = new token();
-  t.getTokenInternal(function (tokenInternal) {
-    var ossClient = ForgeOSS.ApiClient.instance;
-    var ossOAuth = ossClient.authentications ['oauth2_application']; // not the 'oauth2_access_code', as per documentation
-    ossOAuth.accessToken = tokenInternal;
-    var buckets = new ForgeOSS.BucketsApi();
-    var objects = new ForgeOSS.ObjectsApi();
-
-    buckets.getBuckets({limit: 100}).then(function (data) {
-      data.items.forEach(function (bucket) {
-        if (bucket.bucketKey == require('./config').bucketName) {
-          objects.getObjects(bucket.bucketKey).then(function (data) {
-            var models = [];
-            data.items.forEach(function (object) {
-              models.push({id: object.objectKey.split('.')[0], label: object.objectKey, urn: object.objectId.toBase64()});
-            });
-            res.status(200).json(models);
-          });
-        }
-      });
-    });
-  });
+	uploadToOSS('revithouse.rvt', path.join(__dirname, '..', '/samples/rac_basic_sample_project.rvt'), req, res, () => {
+		uploadToOSS('racadvanced.rvt', path.join(__dirname, '..', '/samples/rac_advanced_sample_project.rvt'), req, res, () => {
+			res.end('setup completed!');
+		});
+	});
 });
 
-router.get('/forge/initialsetup', function (req, res) {
-  var path = require('path');
+function uploadToOSS (fileName, filePath, req, res, callback) {
+	new Token().getTokenInternal((tokenInternal, apiInstance) => {
+		let buckets = new ForgeSDK.BucketsApi();
+    //  let objects = new ForgeSDK.ObjectsApi()
+		let postBuckets = new ForgeSDK.PostBucketsPayload();
+		postBuckets.bucketKey = myBucketKey;
+		postBuckets.policyKey = 'persistent';
 
-  uploadToOSS('revithouse.rvt', path.join(__dirname, '..', '/samples/rac_basic_sample_project.rvt'), req, res, function () {
-    uploadToOSS('racadvanced.rvt', path.join(__dirname, '..', '/samples/rac_advanced_sample_project.rvt'), req, res, function () {
-      res.end("setup completed!");
-    });
-  });
+		buckets.createBucket(postBuckets, null, apiInstance, tokenInternal).then(() => {
+			let mineType = getMineType(filePath);
+			let fs = require('fs');
 
-});
-
-function uploadToOSS(fileName, filePath, req, res, callback) {
-  var t = new token();
-  t.getTokenInternal(function (tokenInternal) {
-
-    var ossObjectName = fileName;
-
-    //
-    var ossClient = ForgeOSS.ApiClient.instance;
-    var ossOAuth = ossClient.authentications ['oauth2_application']; // not the 'oauth2_access_code', as per documentation
-    ossOAuth.accessToken = tokenInternal;
-    var buckets = new ForgeOSS.BucketsApi();
-    var objects = new ForgeOSS.ObjectsApi();
-    var postBuckets = new ForgeOSS.PostBucketsPayload();
-    postBuckets.bucketKey = ossBucketKey;
-    postBuckets.policyKey = "persistent";
-
-    // promise will treat 409 as error, but let's handle it
-    buckets.createBucket(postBuckets, null, function (err, data, response) {
-      if (err) {
-        if (err.statusCode!=409) {
-          console.log('Error creating bucket ' + err);
-          return;
-        }
-      }
-
-      // upload to Forge OSS
-      var mineType = getMineType(filePath);
-      var fs = require('fs');
-      fs.readFile(filePath, function (err, filecontent) {
-        request({
-          url: 'https://developer.api.autodesk.com/oss/v2/buckets/' + ossBucketKey + '/objects/' + ossObjectName,
-          method: "PUT",
-          headers: {
-            'Authorization': 'Bearer ' + tokenInternal,
-            'Content-Type': mineType
-          },
-          body: filecontent
-        }, function (error, response, body) {
-          if (error) {console.log(error); return;}
-
+			fs.readFile(filePath, function (err, filecontent) {
+				if (err) { errHandler(err, res); res.status(500).end('Error occurred ...'); return; }
+				request({
+					url: 'https://developer.api.autodesk.com/oss/v2/buckets/' + myBucketKey + '/objects/' + fileName,
+					method: 'PUT',
+					headers: {
+						'Authorization': 'Bearer ' + tokenInternal.access_token,
+						'Content-Type': mineType
+					},
+					body: filecontent
+				}, function (error, response) {
+					if (error) { console.log(error); res.status(500).end('Error occurred ...'); return; }
           // now translate to SVF (Forge Viewer format)
-          var ossUrn = JSON.parse(body).objectId.toBase64();
+					let bodyObj = JSON.parse(response.body);
+					if (bodyObj.objectId) {
+						let ossUrn = toBase64(bodyObj.objectId);
 
-          var mdClient = ForgeModelDerivative.ApiClient.instance;
-          var mdOAuth = mdClient.authentications ['oauth2_access_code'];
-          mdOAuth.accessToken = tokenInternal;
-
-          var derivative = new ForgeModelDerivative.DerivativesApi();
-          derivative.translate(translateData(ossUrn), null).then(function (data) {
-          }).catch(function (e) {
-            console.log(e);
-          });
-
-          if (callback)
-            callback();
-        });
-      });
-    });
-  });
+						let derivative = new ForgeSDK.DerivativesApi();
+						derivative.translate(translateData(ossUrn), null, apiInstance, tokenInternal).then(data => {
+							if (callback) callback(); else res.status(200).end();
+						}, err => { errHandler(err, res); res.status(500).end('Error occurred ...'); });
+					} else res.status(500).end('Error occurred ...');
+				});
+			});
+		}, err => errHandler(err, res)
+    );
+	});
 }
 
-
-var re = /(?:\.([^.]+))?$/; // regex to extract file extension
-
-function getMineType(fileName) {
-  var extension = re.exec(fileName)[1];
-  var types = {
-    'png': 'application/image',
-    'jpg': 'application/image',
-    'txt': 'application/txt',
-    'ipt': 'application/vnd.autodesk.inventor.part',
-    'iam': 'application/vnd.autodesk.inventor.assembly',
-    'dwf': 'application/vnd.autodesk.autocad.dwf',
-    'dwg': 'application/vnd.autodesk.autocad.dwg',
-    'f3d': 'application/vnd.autodesk.fusion360',
-    'f2d': 'application/vnd.autodesk.fusiondoc',
-    'rvt': 'application/vnd.autodesk.revit'
-  };
-  return (types[extension] != null ? types[extension] : 'application/' + extension);
+function getMineType (fileName) {
+	let extension = re.exec(fileName)[1];
+	let types = {
+		'png': 'application/image',
+		'jpg': 'application/image',
+		'txt': 'application/txt',
+		'ipt': 'application/vnd.autodesk.inventor.part',
+		'iam': 'application/vnd.autodesk.inventor.assembly',
+		'dwf': 'application/vnd.autodesk.autocad.dwf',
+		'dwg': 'application/vnd.autodesk.autocad.dwg',
+		'f3d': 'application/vnd.autodesk.fusion360',
+		'f2d': 'application/vnd.autodesk.fusiondoc',
+		'rvt': 'application/vnd.autodesk.revit'
+	};
+	return (types[extension] != null ? types[extension] : 'application/' + extension);
 }
 
-function translateData(ossUrn) {
-  var postJob =
-  {
-    input: {
-      urn: ossUrn
-    },
-    output: {
-      formats: [
-        {
-          type: "svf",
-          views: ["2d", "3d"]
-        }
-      ]
-    }
-  };
-  return postJob;
+function translateData (ossUrn) {
+	let postJob =
+		{
+			input: {
+				urn: ossUrn
+			},
+			output: {
+				formats: [
+					{
+						type: 'svf',
+						views: ['2d', '3d']
+					}
+				]
+			}
+		};
+	return postJob;
 }
 
-String.prototype.toBase64 = function () {
-  return new Buffer(this).toString('base64');
+function toBase64 (val) {
+	return Buffer.from(val).toString('base64');
 };
 
 module.exports = router;
