@@ -30,7 +30,7 @@ function enableViewerCanvas (viewer) {
 	}
 
 	if (viewer.viewCubeUi.homeViewContainer) {
-		viewer.viewCubeUi.infoButton.style.display = 'block';
+		((viewer.viewCubeUi.infoButton||{}).style||{}).display = 'block';
 		viewer.displayViewCube(true, true);
 	}
 }

@@ -20,7 +20,7 @@
 const app = require('./server/server');
 
 // start server
-app.listen(app.get('port'), function (server) {
+app.listen(process.env.PORT || app.get('port'), function (server) {
 	if (process.env.FORGE_CLIENT_ID == null || process.env.FORGE_CLIENT_SECRET == null)		{ console.log('*****************\nWARNING: Client ID & Client Secret not defined as environment variables.\n*****************'); }
 
 	console.log('Starting at ' + (new Date()).toString());

@@ -16,7 +16,7 @@
 
 This sample demonstrates how to navigate on a model with 3D and 2D in sync.
 
-### [Live Demo](https://viewer-navigation-sample.herokuapp.com/)
+### [Live Demo](https://autodesk-viewer-navigation.herokuapp.com/)
 
 # Thumbnail
 ![thumbnail](/thumbnail.png)
@@ -67,7 +67,7 @@ To prepare the models, run the [Initial Setup](http://localhost:3000/forge/initi
 
 To deploy this application to Heroku, the **Callback URL** must use your .herokuapp.com address. After clicking on the button below, at the Heroku Create New App page, set your Client ID & Secret and the correct callback URL.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/Autodesk-Forge/viewer-navigation.sample)
 
 Watch [this video](https://www.youtube.com/watch?v=Oqa9O20Gj0c) on how deploy this sample to Heroku.
 
@@ -105,5 +105,3 @@ Originally by Shen Hong (Autodesk China)
 Updated by Augusto Goncalves (Forge Partner Development) & Bryan Huang (Forge Partner Development)
 
 http://forge.autodesk.com
-
-
