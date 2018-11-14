@@ -23,7 +23,5 @@
     "request": "*",
     "serve-favicon": "*",
     "config-js": "*"
-  },
-  "engines" : { "node" : ">=6.4.0" } ,
-  "engineStrict" : true
+  }
 }

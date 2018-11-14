@@ -16,7 +16,7 @@
 
 This sample demonstrates how to navigate on a model with 3D and 2D in sync.
 
-### [Live Demo](https://viewer-navigation-sample.herokuapp.com/)
+### [Live Demo](https://viewernavigation.herokuapp.com/)
 
 # Thumbnail
 ![thumbnail](/thumbnail.png)
