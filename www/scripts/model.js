@@ -102,17 +102,15 @@ function loadDocument (urnStr, cb3d, cb2d) {
 
     // onSuccessCallback
   function (document) {
-	var geometryItems3D = Autodesk.Viewing.Document.getSubItemsWithProperties(document.getRootItem(), {
+
+	viewer3D.loadModel(document.getViewablePath(document.getRoot().search({
 		'type': 'geometry',
 		'role': '3d'
-	}, true);
-	var geometryItems2D = Autodesk.Viewing.Document.getSubItemsWithProperties(document.getRootItem(), {
+	})[0]), null, function () { if (cb3d) cb3d(); });
+	viewer2D.loadModel(document.getViewablePath(document.getRoot().search({
 		'type': 'geometry',
 		'role': '2d'
-	}, true);
-
-	viewer3D.load(document.getViewablePath(geometryItems3D[0]), null, function () { if (cb3d) cb3d(); });
-	viewer2D.load(document.getViewablePath(geometryItems2D[0]), null, function () { if (cb2d) cb2d(); });
+	})[0]), null, function () { if (cb2d) cb2d(); });
 },
     // onErrorCallback
     function (msg) {

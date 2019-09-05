@@ -5,10 +5,10 @@
 ![Platforms](https://img.shields.io/badge/platform-windows%20%7C%20osx%20%7C%20linux-lightgray.svg)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
 
-[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
-[![ForgeSDK](https://img.shields.io/badge/ForgeSDK-0.2.7-green.svg)](http://developer.autodesk.com/)
-[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://developer.autodesk.com/)
-[![Viewer](https://img.shields.io/badge/Viewer-v6.0-green.svg)](http://developer.autodesk.com/)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://forge.autodesk.com/)
+[![ForgeSDK](https://img.shields.io/badge/ForgeSDK-0.2.7-green.svg)](http://forge.autodesk.com/)
+[![Model-Derivative](https://img.shields.io/badge/Model%20Derivative-v2-green.svg)](http://forge.autodesk.com/)
+[![Viewer](https://img.shields.io/badge/Viewer-v7.*-green.svg)](http://forge.autodesk.com/)
 <!-- Coding Style -->
 [![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
 
@@ -16,7 +16,7 @@
 
 This sample demonstrates how to navigate on a model with 3D and 2D in sync.
 
-### [Live Demo](https://viewernavigation.herokuapp.com/)
+### [Live Demo](https://autodesk-viewer-navigation.herokuapp.com/)
 
 # Thumbnail
 ![thumbnail](/thumbnail.png)
@@ -67,7 +67,7 @@ To prepare the models, run the [Initial Setup](http://localhost:3000/forge/initi
 
 To deploy this application to Heroku, the **Callback URL** must use your .herokuapp.com address. After clicking on the button below, at the Heroku Create New App page, set your Client ID & Secret and the correct callback URL.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/Autodesk-Forge/viewer-navigation.sample)
 
 Watch [this video](https://www.youtube.com/watch?v=Oqa9O20Gj0c) on how deploy this sample to Heroku.
 
@@ -105,5 +105,3 @@ Originally by Shen Hong (Autodesk China)
 Updated by Augusto Goncalves (Forge Partner Development) & Bryan Huang (Forge Partner Development)
 
 http://forge.autodesk.com
-
-
