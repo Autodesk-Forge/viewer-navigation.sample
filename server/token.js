@@ -18,14 +18,13 @@
 
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
-const Config = require('config-js');
-const config = new Config('./config.js');
+const config = require('config');
 const ForgeSDK = require('forge-apis');
 
 class Token {
 	getTokenPublic (callback) {
-		let clientId = config.get('credentials.client_id');
-		let clientSecret = config.get('credentials.client_secret');
+		let clientId = config.get('credentials.client_id') || process.env.FORGE_CLIENT_ID;
+		let clientSecret = config.get('credentials.client_secret') || process.env.FORGE_CLIENT_SECRET;
 
 		let apiInstance = new ForgeSDK.AuthClientTwoLegged(clientId, clientSecret, config.get('scopePublic'), config.get('autoRefresh'));
 		apiInstance.authenticate().then(function (data) {

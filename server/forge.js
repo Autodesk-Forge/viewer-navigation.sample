@@ -25,8 +25,7 @@ const request = require('request');
 const re = /(?:\.([^.]+))?$/; // regex to extract file extension
 
 // forge config information, such as client ID and secret
-const Config = require('config-js');
-const config = new Config('./config.js');
+const config = require('config');
 
 // make requests for tokens
 const Token = require('./token');
@@ -34,7 +33,7 @@ const Token = require('./token');
 // forge
 
 const ForgeSDK = require('forge-apis');
-const myBucketKey = config.get('bucketName');
+const myBucketKey = config.get('bucketName') || process.env.FORGE_BUCKET;
 const errHandler = function (err, res) { console.log(err); if (res && res.status)res.status(500).json(err); };
 // this end point will forgeLogoff the user by destroying the session
 // as of now there is no Forge endpoint to invalidate tokens
@@ -48,7 +47,7 @@ router.get('/forge/models', (req, res) => {
 		let objects = new ForgeSDK.ObjectsApi();
 
 		buckets.getBuckets({}, apiInstance, tokenInternal).then(data => {
-			let bucket = data.body.items.find(abucket => abucket.bucketKey === config.get('bucketName'));
+			let bucket = data.body.items.find(abucket => abucket.bucketKey === myBucketKey);
 
 			if (bucket) {
 				objects.getObjects(bucket.bucketKey, null, apiInstance, tokenInternal).then(data => {
