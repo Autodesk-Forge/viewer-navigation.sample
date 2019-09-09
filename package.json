@@ -5,7 +5,7 @@
   "main": "start.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Autodesk-Forge/viewer-navigation.sample"
+    "url": "git://github.com/Developer-Autodesk/viewer-navigation.sample"
   },
   "scripts": {
     "start": "NODE_ENV=production node start.js",
@@ -16,12 +16,16 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "*",
+    "config": "^3.2.2",
     "express": "*",
+    "forge-apis": "*",
     "forge-model-derivative": "*",
     "forge-oauth2": "*",
-    "forge-apis": "*",
     "request": "*",
-    "serve-favicon": "*",
-    "config-js": "*"
-  }
+    "serve-favicon": "*"
+  },
+  "engines": {
+    "node": ">=6.4.0"
+  },
+  "engineStrict": true
 }
