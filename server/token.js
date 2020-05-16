@@ -33,8 +33,8 @@ class Token {
 	}
 
 	getTokenInternal (callback) {
-		let clientId = config.get('credentials.client_id');
-		let clientSecret = config.get('credentials.client_secret');
+		let clientId = config.get('credentials.client_id') || process.env.FORGE_CLIENT_ID;
+		let clientSecret = config.get('credentials.client_secret') || process.env.FORGE_CLIENT_SECRET;
 
 		let apiInstance = new ForgeSDK.AuthClientTwoLegged(clientId, clientSecret, config.get('scopeInternal'), config.get('autoRefresh'));
 		apiInstance.authenticate().then(function (data) {
