@@ -27,8 +27,12 @@ class Token {
 		let clientSecret = config.get('credentials.client_secret') || process.env.FORGE_CLIENT_SECRET;
 
 		let apiInstance = new ForgeSDK.AuthClientTwoLegged(clientId, clientSecret, config.get('scopePublic'), config.get('autoRefresh'));
-		apiInstance.authenticate().then(function (data) {
+		apiInstance.authenticate()
+		.then(function (data) {
 			callback(data, apiInstance);
+		})
+		.catch(function (err) {
+			console.error (err);
 		});
 	}
 
@@ -37,9 +41,13 @@ class Token {
 		let clientSecret = config.get('credentials.client_secret') || process.env.FORGE_CLIENT_SECRET;
 
 		let apiInstance = new ForgeSDK.AuthClientTwoLegged(clientId, clientSecret, config.get('scopeInternal'), config.get('autoRefresh'));
-		apiInstance.authenticate().then(function (data) {
+		apiInstance.authenticate()
+		.then(function (data) {
 			callback(data, apiInstance);
-		});
+		})
+		.catch(function (err) {
+                        console.error (err);
+                });
 	}
 }
 

@@ -1,0 +1,21 @@
+{
+  "credentials": {
+    "client_id": "",
+    "client_secret": ""
+  },
+  "bucketName": "",
+  "autoRefresh": true,
+  "scopeInternal": [
+    "data:read",
+    "data:write",
+    "data:create",
+    "data:search",
+    "bucket:create",
+    "bucket:read",
+    "bucket:update",
+    "bucket:delete"
+  ],
+  "scopePublic": [
+    "data:read"
+  ]
+}

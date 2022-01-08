@@ -16,12 +16,12 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "*",
-    "config": "^3.2.2",
+    "config": "^3.3.4",
     "express": "*",
-    "forge-apis": "*",
+    "forge-apis": "^0.7.3",
     "forge-model-derivative": "*",
     "forge-oauth2": "*",
-    "request": "*",
+    "request": "^2.88.2",
     "serve-favicon": "*"
   },
   "engines": {
